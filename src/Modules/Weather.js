@@ -22,7 +22,7 @@ class Weather {
     fetchCurrentWeatherData = async (location) => {
         try {
             const response = await fetch(
-                `http://api.weatherapi.com/v1/current.json?key=58979825eb394eb088b103404231410&q=${location}&aqi=no`,
+                `https://api.weatherapi.com/v1/current.json?key=58979825eb394eb088b103404231410&q=${location}&aqi=no`,
                 { mode: 'cors' }
             );
 
