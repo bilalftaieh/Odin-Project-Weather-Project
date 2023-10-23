@@ -23,7 +23,7 @@ class Weather {
         try {
             const response = await fetch(
                 `https://api.weatherapi.com/v1/current.json?key=58979825eb394eb088b103404231410&q=${location}&aqi=no`,
-                { mode: 'cors' }
+                { mode: 'no-cors' }
             );
 
             if (response.status === 200) {
