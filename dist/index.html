@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Poppins&display=swap" rel="stylesheet">
+    <title>Weather Forecast</title>
+</head>
+<body>
+    <div class="container">
+
+        <div class="header-div">
+            <header>
+                <h1>Weather Forecast</h1>
+            </header>
+            <div class="search-bar">
+                <form>
+                    <input type="text" id="location-search" placeholder="Enter a location" required>
+                    <button type="submit" id="search-button">Search</button>
+                </form>
+            </div>
+            <div class="temp-buttons">
+                <button id="celsius-button" style="border: 2px solid white;">°C</button>
+                <button id="fahrenheit-button">°F</button>
+            </div> 
+        </div>
+
+            <div class="location-info-div">
+                <h1 id="location-name">Amsterdam,Netherlands</h1>
+                <p id="location-current-date">Sunday 15 October 2023 | 12:30</p>
+            </div>
+        
+        <main>
+            <div class="location-weather-div">
+    
+                <div class="location-condition-div">
+                    <div class="location-temp">
+                        <img src="https://th.bing.com/th/id/R.ef5b59a4b73ea3a436c5606af26236e0?rik=PbqwJEjQ0oOw3Q&riu=http%3a%2f%2fwww.clipartbest.com%2fcliparts%2fjTx%2f69p%2fjTx69p8Xc.png&ehk=waR%2fXJIHuBf8itTDhd6CYtaDHzzNQTug3PNPvcaV4UM%3d&risl=&pid=ImgRaw&r=0" alt=""
+                        width="20%s" id="condition-logo">
+                        <h1 id="temp-header"><span id="temp-value">7</span> °C</h1>
+                    </div>
+                    <div class="location-condition-details" style="text-align: center;">
+                        <p id="location-condition"></p>
+                        <p id="location-condition-feelslike">Feels Like : <span id="feels-like">7.0
+                        </span> °C</p>
+                    </div>
+                </div>
+    
+                <div class="location-details-div">
+                    <div class="location-details">
+                        <p class="location-detail-title">Wind</p>
+                        <p class="location-detail-data"><span id="wind_mph">60</span>mph</p>
+                    </div>
+                    <div class="location-details">
+                        <p class="location-detail-title">Precipitation</p>
+                        <p class="location-detail-data"><span id="precip_mm">60</span>mm</p>
+                    </div>
+                    
+                    <div class="location-details">
+                        <p class="location-detail-title">Humidity</p>
+                        <p class="location-detail-data"><span id="humidity">60</span>%</p>
+                    </div>
+    
+                    <div class="location-details">
+                        <p class="location-detail-title">Cloud</p>
+                        <p class="location-detail-data"><span id="cloud">60</span>%</p>
+                    </div>
+    
+                    <div class="location-details">
+                        <p class="location-detail-title">Visibility</p>
+                        <p class="location-detail-data"><span id="vis_km">60</span>km</p>
+                    </div>
+    
+                    <div class="location-details">
+                        <p class="location-detail-title">UV Index</p>
+                        <p class="location-detail-data"><span id="uv">4.0</span></p>
+                    </div>
+    
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+<script src="main.js"></script>
+</html>
