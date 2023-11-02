@@ -1,0 +1,252 @@
+/* Reset some default styles for consistency */
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    overflow-x:hidden 
+  } 
+
+body {
+    font-family: 'Raleway', sans-serif;
+    color: #fff;
+}
+
+.container{
+    display: grid;
+    grid-template-rows: 150px 150px 150px 150px;
+    align-items: center;
+}
+
+header {
+    text-align: center;
+    color: #fff;
+  }
+  
+  header h1 {
+    font-size: 36px; 
+  }
+
+
+.header-div{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    margin: 30px;
+    column-gap: 10rem;
+}
+
+.search-bar {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#location-search {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+
+#search-button.night { 
+    background: linear-gradient(to bottom, #000, #000);
+    color: #fff;
+    border: none;
+    /* border-radius: 4px; */
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+#search-button.night:hover {
+    background: linear-gradient(to bottom, #000, #191970);
+}
+
+#search-button.day { 
+    background: linear-gradient(to bottom, #87CEEB, #1E90FF);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+#search-button.day:hover {
+    background: linear-gradient(to bottom, #6599CC, #0D74BF); 
+
+}
+
+.temp-buttons {
+    text-align: center;
+  }
+
+  .temp-button{
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    color: #fff; 
+    border: none;
+    margin: 5px; 
+    cursor: pointer;
+    transition: border 0.2s;
+  }
+  
+  .temp-button.night{
+    background: linear-gradient(to bottom, #000, #191970);
+  }
+
+  .temp-button.day{
+    background: linear-gradient(to bottom, #87CEEB, #1E90FF);
+  }
+  
+  .temp-button:focus {
+    border: 2px solid white; 
+  }
+  
+
+.location-info-div{
+    text-align: center;
+    overflow: hidden;
+}
+
+#location-name{
+    font-size: 45px;
+    color: white;
+}
+
+#location-current-date{
+    margin-top: 5px;
+    font-size: 20px;
+    color: white;
+    opacity: 0.5;
+}
+
+.location-condition-details{
+    text-align: center;
+    font-weight: 700;
+}
+
+
+.location-weather-div{
+    display: grid;
+    grid-template-columns: 250px 250px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 110px;
+}
+
+.location-temp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#temp-value{
+    margin-left: 20px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.location-details-div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px; 
+}
+
+.location-details {
+    padding: 10px;
+    text-align: center;
+}
+
+.location-detail-title {
+    font-weight: bold;
+    opacity: 0.5;
+}
+
+.location-detail-data {
+    font-size: 25px;
+    margin-top: 4px;
+}
+
+footer {    
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 18px;
+}
+
+.github-link {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.github-link i {
+    font-size: 24px;
+    margin-right: 8px;
+}
+
+.github-link:hover {
+    text-decoration: underline;
+}
+
+.day-bg {
+    background: linear-gradient(to bottom, #87CEEB, #1E90FF); /* Adjust gradient colors as needed */
+}
+
+.day-bg.cloudy{
+    backdrop-filter: contrast(0.5);
+}
+
+.day-bg.rainy{
+    backdrop-filter: brightness(0.5);
+}
+
+.night-bg {
+    background: linear-gradient(to bottom, #000, #191970); 
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+      .header-div{
+        grid-template-columns: auto;
+        grid-template-rows: 50px 50px 50px;
+      }
+
+      .container{
+        grid-template-rows: 200px 200px 200px 200px;
+      }
+
+      .search-bar {
+        margin-top: 0;
+    }
+
+    #location-name{
+        font-size: 40px;
+    }
+
+    .location-weather-div{
+        display: grid;
+        grid-template-rows: 140px 90px;
+        grid-template-columns: auto;
+        margin-right: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .location-condition-div{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+    }
+
+
+      
+}
+
