@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Poppins&display=swap" rel="stylesheet">
-    <title>Weather Forecast</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Nunito+Sans:opsz@6..12&family=Poppins&family=Raleway:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e9bf30ccfb.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
@@ -23,8 +25,8 @@
                 </form>
             </div>
             <div class="temp-buttons">
-                <button id="celsius-button" style="border: 2px solid white;">°C</button>
-                <button id="fahrenheit-button">°F</button>
+                <button id="celsius-button" class="temp-button" style="border: 2px solid white;">°C</button>
+                <button id="fahrenheit-button" class="temp-button">°F</button>
             </div> 
         </div>
 
@@ -38,11 +40,11 @@
     
                 <div class="location-condition-div">
                     <div class="location-temp">
-                        <img src="https://th.bing.com/th/id/R.ef5b59a4b73ea3a436c5606af26236e0?rik=PbqwJEjQ0oOw3Q&riu=http%3a%2f%2fwww.clipartbest.com%2fcliparts%2fjTx%2f69p%2fjTx69p8Xc.png&ehk=waR%2fXJIHuBf8itTDhd6CYtaDHzzNQTug3PNPvcaV4UM%3d&risl=&pid=ImgRaw&r=0" alt=""
-                        width="20%s" id="condition-logo">
+                        <img src="https://th.bing.com/th/id/R.ef5b59a4b73ea3a436c5606af26236e0?rik=PbqwJEjQ0oOw3Q&riu=http%3a%2f%2fwww.clipartbest.com%2fcliparts%2fjTx%2f69p%2fjTx69p8Xc.png&ehk=waR%2fXJIHuBf8itTDhd6CYtaDHzzNQTug3PNPvcaV4UM%3d&risl=&pid=ImgRaw&r=0"
+                        width="36%" id="condition-logo">
                         <h1 id="temp-header"><span id="temp-value"></span> °C</h1>
                     </div>
-                    <div class="location-condition-details" style="text-align: center;">
+                    <div class="location-condition-details">
                         <p id="location-condition"></p>
                         <p id="location-condition-feelslike">Feels Like : <span id="feels-like">
                         </span> °C</p>
@@ -83,6 +85,11 @@
             </div>
         </main>
     </div>
+        <footer>
+        <a class="github-link" href="https://github.com/bilalftaieh/Odin-Project-Weather-Project" target="_blank">
+            <i class="fa-brands fa-github"></i> GitHub Repository
+        </a>
+    </footer>
 </body>
 <script src="main.js"></script>
 </html>

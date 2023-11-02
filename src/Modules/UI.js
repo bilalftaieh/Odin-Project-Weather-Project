@@ -6,6 +6,8 @@ class UI {
     constructor() {
         // Initialize UI elements by selecting them from the DOM
 
+        this._bodyElement = document.querySelector("body");
+
         // Input element for location search
         this._inputElement = document.querySelector("#location-search");
 
@@ -35,6 +37,9 @@ class UI {
     // Display weather information to the UI
     displayToUi = () => {
         this.updateCommonElements();
+        this.changeBackgroundColor();
+        this.changeSearchButtonColor();
+        this.changeTempButtonColor();
 
         // Check the selected temperature unit and display accordingly
         if (this._selectedDegree !== 'celsius') {
@@ -43,6 +48,76 @@ class UI {
             this.displayTemperature(Weather.getCelsiusTemp(), Weather.getFeelsLikeC(), '°C');
         }
     }
+
+    // Changes the background color of the webpage based on the time of day and current weather conditions.
+    changeBackgroundColor = () => {
+
+        // Check if it's day or night based on the Weather class.
+        const isDay = Weather.isDay();
+        // Get a reference to the body element of the webpage.
+        const bodyElement = this._bodyElement;
+        // Get the current weather condition code from the Weather class.
+        const currentConditionCode = Weather.getConditionCode();
+        // Get arrays of condition codes for rainy and cloudy conditions from the Weather class.
+        const rainyConditionsCodes = Weather.getRainyConditionsCodes();
+        const cloudyConditionsCodes = Weather.getCloudyConditionsCodes();
+
+        // Reset the class attribute of the body element.
+        bodyElement.className = '';
+
+        if (isDay) {
+            // It's daytime, so set a daytime background color.
+            bodyElement.classList.add('day-bg');
+
+            // Check if the current weather condition is cloudy and update the background accordingly.
+            if (cloudyConditionsCodes.includes(currentConditionCode)) {
+                bodyElement.classList.add('cloudy');
+            }
+            // Check if the current weather condition is rainy and update the background accordingly.
+            else if (rainyConditionsCodes.includes(currentConditionCode)) {
+                bodyElement.classList.add('rainy');
+            }
+        } else {
+            // It's nighttime, so set a nighttime background color.
+            bodyElement.classList.add('night-bg');
+        }
+    }
+
+    // Changes the color of the search button based on whether it's day or night.
+    changeSearchButtonColor = () => {
+        // Check if it's day or night based on the Weather class.
+        const isDay = Weather.isDay();
+
+        if (isDay) {
+            // If it's daytime, update the search button to a daytime style.
+            this._searchButton.classList.remove('night');
+            this._searchButton.classList.add('day');
+        } else {
+            // If it's nighttime, update the search button to a nighttime style.
+            this._searchButton.classList.remove('day');
+            this._searchButton.classList.add('night');
+        }
+    }
+
+    // Changes the color of the temperature unit buttons (Celsius and Fahrenheit) based on whether it's day or night.
+    changeTempButtonColor = () => {
+        // Check if it's day or night based on the Weather class.
+        const isDay = Weather.isDay();
+
+        if (isDay) {
+            // If it's daytime, update the temperature unit buttons to a daytime style.
+            this._celsiusButton.classList.remove('night');
+            this._celsiusButton.classList.add('day');
+            this._fahrenheitButton.classList.remove('night');
+            this._fahrenheitButton.classList.add('day');
+        } else {
+            // If it's nighttime, update the temperature unit buttons to a nighttime style.
+            this._celsiusButton.classList.remove('day');
+            this._celsiusButton.classList.add('night');
+            this._fahrenheitButton.classList.remove('day');
+            this._fahrenheitButton.classList.add('night');
+        }
+}
 
     // Display the temperature in the UI
     displayTemperature(tempValue, feelsLikeValue, unit) {

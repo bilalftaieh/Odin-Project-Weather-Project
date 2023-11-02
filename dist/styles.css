@@ -4,9 +4,12 @@ body, h1, h2, p {
     padding: 0;
 }
 
+html, body {
+    overflow-x:hidden 
+  } 
+
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #177EA1;
+    font-family: 'Raleway', sans-serif;
     color: #fff;
 }
 
@@ -33,8 +36,6 @@ header {
     column-gap: 10rem;
 }
 
-
-
 .search-bar {
     text-align: center;
     margin-top: 20px;
@@ -47,30 +48,44 @@ header {
     border-radius: 4px;
 }
 
-#search-button {
-    background-color: #3498db;
+#search-button.night { 
+    background: linear-gradient(to bottom, #000, #000);
     color: #fff;
     border: none;
-    border-radius: 4px;
+    /* border-radius: 4px; */
     padding: 10px 20px;
     margin-left: 10px;
     cursor: pointer;
+    transition: background-color 0.3s; 
 }
 
-#search-button:hover {
-    background-color: #0a74da;
+#search-button.night:hover {
+    background: linear-gradient(to bottom, #000, #191970);
 }
 
+#search-button.day { 
+    background: linear-gradient(to bottom, #87CEEB, #1E90FF);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+#search-button.day:hover {
+    background: linear-gradient(to bottom, #6599CC, #0D74BF); 
+
+}
 
 .temp-buttons {
     text-align: center;
   }
-  
-  .temp-buttons button {
+
+  .temp-button{
     width: 40px; 
     height: 40px; 
     border-radius: 50%; 
-    background-color: #3498db; 
     color: #fff; 
     border: none;
     margin: 5px; 
@@ -78,13 +93,22 @@ header {
     transition: border 0.2s;
   }
   
-  .temp-buttons button:focus {
+  .temp-button.night{
+    background: linear-gradient(to bottom, #000, #191970);
+  }
+
+  .temp-button.day{
+    background: linear-gradient(to bottom, #87CEEB, #1E90FF);
+  }
+  
+  .temp-button:focus {
     border: 2px solid white; 
   }
   
 
 .location-info-div{
     text-align: center;
+    overflow: hidden;
 }
 
 #location-name{
@@ -97,6 +121,11 @@ header {
     font-size: 20px;
     color: white;
     opacity: 0.5;
+}
+
+.location-condition-details{
+    text-align: center;
+    font-weight: 700;
 }
 
 
@@ -139,5 +168,85 @@ header {
 .location-detail-data {
     font-size: 25px;
     margin-top: 4px;
+}
+
+footer {    
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 18px;
+}
+
+.github-link {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.github-link i {
+    font-size: 24px;
+    margin-right: 8px;
+}
+
+.github-link:hover {
+    text-decoration: underline;
+}
+
+.day-bg {
+    background: linear-gradient(to bottom, #87CEEB, #1E90FF); /* Adjust gradient colors as needed */
+}
+
+.day-bg.cloudy{
+    backdrop-filter: contrast(0.5);
+}
+
+.day-bg.rainy{
+    backdrop-filter: brightness(0.5);
+}
+
+.night-bg {
+    background: linear-gradient(to bottom, #000, #191970); 
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+      .header-div{
+        grid-template-columns: auto;
+        grid-template-rows: 50px 50px 50px;
+      }
+
+      .container{
+        grid-template-rows: 200px 200px 200px 200px;
+      }
+
+      .search-bar {
+        margin-top: 0;
+    }
+
+    #location-name{
+        font-size: 40px;
+    }
+
+    .location-weather-div{
+        display: grid;
+        grid-template-rows: 140px 90px;
+        grid-template-columns: auto;
+        margin-right: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .location-condition-div{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+    }
+
+
+      
 }
 

@@ -22,8 +22,7 @@ class Weather {
     fetchCurrentWeatherData = async (location) => {
         try {
             const response = await fetch(
-                `https://api.weatherapi.com/v1/current.json?key=58979825eb394eb088b103404231410&q=${location}&aqi=no`,
-                { mode: 'no-cors' }
+                 `http://api.weatherapi.com/v1/current.json?key=58979825eb394eb088b103404231410&q=${location}&aqi=no`
             );
 
             if (response.status === 200) {
@@ -39,6 +38,8 @@ class Weather {
             console.error("Error:", error);
         }
     };
+
+     // Other methods for retrieving weather-related information
 
     // Get temperature in Celsius
     getCelsiusTemp = () => {
@@ -170,6 +171,47 @@ class Weather {
             console.error("Weather data not available.");
         }
     };
+
+    // Get Code for the Current Weather Condition
+    getConditionCode = () =>{
+        if (this._weatherData) {
+            return this._weatherData.current.condition.code;
+        } else {
+            console.error("Weather data not available.");
+        }
+    }
+
+    // return true if it is day
+    isDay = () =>{
+        if(this._weatherData.current.is_day == 1){
+            return true;
+        }
+
+        return false;
+        
+    }
+
+    // Get the codes for Rainy Weather Condition
+    getRainyConditionsCodes = () => {
+        return [
+            1180, 1183, 1186, 1189, 1192, 1195
+        ];
+    }
+    
+    // Get the codes for Cloudy Weather Condition
+    getCloudyConditionsCodes = () => {
+        return [
+            1003, 1006, 1009
+        ];
+    }
+    
+    // Get the codes for Sunny Weather Condition
+    getSunnyConditionCodes = () => {
+        return [
+            1000
+        ];
+    }
+    
 }
 
 // Export an instance of the Weather class
