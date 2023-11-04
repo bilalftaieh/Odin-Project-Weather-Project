@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Nunito+Sans:opsz@6..12&family=Poppins&family=Raleway:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e9bf30ccfb.js" crossorigin="anonymous"></script>
+    <title>Weather Forecast</title>
 </head>
 <body>
     <div class="container">
@@ -36,7 +37,6 @@
                 <p id="location-current-date"></p>
             </div>
         
-        <main>
             <div class="location-weather-div">
     
                 <div class="location-condition-div">
@@ -84,7 +84,49 @@
     
                 </div>
             </div>
-        </main>
+
+            <div class="three-day-forecast-div">
+                <h2>
+                    3-Day Forecast
+                </h2>
+
+                <div id="three-day-forecast-grid-table">
+
+                    <div class="grid-table-row">
+                        <h3 id="date-header">Date</h2>
+                        <h3 id="condition-header">Condition</h2>
+                        <h3 id="min-temp-header">Min Temp</h2>
+                        <h3 id="max-temp-header">Max Temp</h2>
+                        <h3 id="chance-rain-header">Rain Chance</h2>
+                    </div>
+                    
+                    <div class="grid-table-row">
+                        <p class="date-column"></p>
+                        <p class="condition-column"></p>
+                        <p class="min-temp-column"><span class="min-temp-value"></span> °C</p>
+                        <p class="max-temp-column"><span class="max-temp-value"></span> °C</p>
+                        <p class="chance-rain-column"><span class="chance-rain-value"></span> %</p>
+                    </div>
+
+                    <div class="grid-table-row">
+                        <p class="date-column"></p>
+                        <p class="condition-column"></p>
+                        <p class="min-temp-column"><span class="min-temp-value"></span> °C</p>
+                        <p class="max-temp-column"><span class="max-temp-value"></span> °C</p>
+                        <p class="chance-rain-column"><span class="chance-rain-value"></span> %</p>
+                    </div>
+
+                    <div class="grid-table-row">
+                        <p class="date-column"></p>
+                        <p class="condition-column"></p>
+                        <p class="min-temp-column"><span class="min-temp-value"></span> °C</p>
+                        <p class="max-temp-column"><span class="max-temp-value"></span> °C</p>
+                        <p class="chance-rain-column"><span class="chance-rain-value"></span> %</p>
+                    </div>
+
+                </div>
+            </div>
+            
     </div>
         <footer>
         <a class="github-link" href="https://github.com/bilalftaieh/Odin-Project-Weather-Project" target="_blank">
