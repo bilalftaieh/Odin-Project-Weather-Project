@@ -1,22 +1,14 @@
-// Import the Weather module to access weather data
 import Weather from "./Weather";
+import { format, parseISO } from "date-fns";
 
-// Create a UI class responsible for managing the user interface
 class UI {
     constructor() {
-        // Initialize UI elements by selecting them from the DOM
-
+        // Initialize DOM elements
         this._bodyElement = document.querySelector("body");
-
-        // Input element for location search
         this._inputElement = document.querySelector("#location-search");
-
-        // Buttons for various actions
         this._searchButton = document.querySelector("#search-button");
         this._celsiusButton = document.querySelector("#celsius-button");
         this._fahrenheitButton = document.querySelector("#fahrenheit-button");
-
-        // Elements to display weather information
         this._locationNameHeader = document.querySelector("#location-name");
         this._locationCurrentDateParagraph = document.querySelector("#location-current-date");
         this._locationConditionParagraph = document.querySelector("#location-condition");
@@ -29,103 +21,156 @@ class UI {
         this._cloudSpan = document.querySelector("#cloud");
         this._visKmSpan = document.querySelector("#vis_km");
         this._uvSpan = document.querySelector("#uv");
-
-        // Default temperature unit is Celsius
         this._selectedDegree = 'celsius';
+
+    }
+
+    // Initialize the user interface and event listeners
+    startUI() {
+        Weather.fetchCurrentWeatherData("New York").then(() => {
+            this.displayToUi();
+        });
+
+        // Event listener for the search button
+        this._searchButton.addEventListener('click', (e) => {
+            const enteredLocation = this._inputElement.value;
+            Weather.fetchCurrentWeatherData(enteredLocation).then(() => {
+                this.displayToUi();
+            });
+
+            this._inputElement.value = '';
+            e.preventDefault();
+        });
+
+        // Event listeners for unit conversion buttons (Celsius and Fahrenheit)
+        this._celsiusButton.addEventListener("click", () => {
+            this.toggleTemperatureUnit('celsius');
+        });
+
+        this._fahrenheitButton.addEventListener("click", () => {
+            this.toggleTemperatureUnit('fahrenheit');
+        });
     }
 
     // Display weather information to the UI
-    displayToUi = () => {
+    displayToUi() {
         this.updateCommonElements();
         this.changeBackgroundColor();
         this.changeSearchButtonColor();
         this.changeTempButtonColor();
-
-        // Check the selected temperature unit and display accordingly
-        if (this._selectedDegree !== 'celsius') {
-            this.displayTemperature(Weather.getFahrenheitTemp(), Weather.getFeelsLikeF(), '°F');
-        } else {
-            this.displayTemperature(Weather.getCelsiusTemp(), Weather.getFeelsLikeC(), '°C');
-        }
+        this.displayThreeDayForecast();
+        this.displayTemperature();
     }
 
-    // Changes the background color of the webpage based on the time of day and current weather conditions.
-    changeBackgroundColor = () => {
-
-        // Check if it's day or night based on the Weather class.
+    // Change the background color of the webpage based on weather conditions
+    changeBackgroundColor() {
         const isDay = Weather.isDay();
-        // Get a reference to the body element of the webpage.
         const bodyElement = this._bodyElement;
-        // Get the current weather condition code from the Weather class.
         const currentConditionCode = Weather.getConditionCode();
-        // Get arrays of condition codes for rainy and cloudy conditions from the Weather class.
         const rainyConditionsCodes = Weather.getRainyConditionsCodes();
         const cloudyConditionsCodes = Weather.getCloudyConditionsCodes();
 
-        // Reset the class attribute of the body element.
         bodyElement.className = '';
 
         if (isDay) {
-            // It's daytime, so set a daytime background color.
             bodyElement.classList.add('day-bg');
 
-            // Check if the current weather condition is cloudy and update the background accordingly.
             if (cloudyConditionsCodes.includes(currentConditionCode)) {
                 bodyElement.classList.add('cloudy');
-            }
-            // Check if the current weather condition is rainy and update the background accordingly.
-            else if (rainyConditionsCodes.includes(currentConditionCode)) {
+            } else if (rainyConditionsCodes.includes(currentConditionCode)) {
                 bodyElement.classList.add('rainy');
             }
         } else {
-            // It's nighttime, so set a nighttime background color.
             bodyElement.classList.add('night-bg');
         }
     }
 
-    // Changes the color of the search button based on whether it's day or night.
-    changeSearchButtonColor = () => {
-        // Check if it's day or night based on the Weather class.
+    // Change the color of the search button based on the time of day
+    changeSearchButtonColor() {
         const isDay = Weather.isDay();
 
         if (isDay) {
-            // If it's daytime, update the search button to a daytime style.
             this._searchButton.classList.remove('night');
             this._searchButton.classList.add('day');
         } else {
-            // If it's nighttime, update the search button to a nighttime style.
             this._searchButton.classList.remove('day');
             this._searchButton.classList.add('night');
         }
     }
 
-    // Changes the color of the temperature unit buttons (Celsius and Fahrenheit) based on whether it's day or night.
-    changeTempButtonColor = () => {
-        // Check if it's day or night based on the Weather class.
+    // Change the color of the temperature unit buttons (Celsius and Fahrenheit) based on the time of day
+    changeTempButtonColor() {
         const isDay = Weather.isDay();
 
         if (isDay) {
-            // If it's daytime, update the temperature unit buttons to a daytime style.
             this._celsiusButton.classList.remove('night');
             this._celsiusButton.classList.add('day');
             this._fahrenheitButton.classList.remove('night');
             this._fahrenheitButton.classList.add('day');
         } else {
-            // If it's nighttime, update the temperature unit buttons to a nighttime style.
             this._celsiusButton.classList.remove('day');
             this._celsiusButton.classList.add('night');
             this._fahrenheitButton.classList.remove('day');
             this._fahrenheitButton.classList.add('night');
         }
-}
+    }
 
-    // Display the temperature in the UI
-    displayTemperature(tempValue, feelsLikeValue, unit) {
+    // Display a three-day weather forecast in the UI
+    displayThreeDayForecast() {
+        const gridTableRows = document.querySelectorAll('.grid-table-row');
+        const forecastArray = Weather.getForecastDayArray();
+
+        gridTableRows.forEach((row, index) => {
+            if (index == 0) {
+                return;
+            }
+
+            const forecastObject = forecastArray[index - 1];
+            const date = parseISO(forecastObject.date);
+            const dayName = format(date, 'eeee');
+            row.querySelector('.date-column').textContent = dayName;
+            row.querySelector('.condition-column').textContent = forecastObject.day.condition.text;
+            row.querySelector('.chance-rain-column .chance-rain-value').textContent = forecastObject.day.daily_chance_of_rain;
+        });
+    }
+
+    // Configure temperature display in the UI
+    configureTemperature(tempValue, feelsLikeValue, unit) {
         const tempHeaderElement = document.getElementById("temp-header");
         tempHeaderElement.innerHTML = `<span id="temp-value">${tempValue}</span> ${unit}`;
 
         const locationFeelsLikeElement = document.getElementById("location-condition-feelslike");
         locationFeelsLikeElement.innerHTML = `Feels Like : <span id="feels-like">${feelsLikeValue}</span> ${unit}`;
+
+        this.displayForecastTemperature(unit);
+    }
+
+    // Change the temperature display in the three-day forecast
+    displayForecastTemperature(unit) {
+        const minTempColumns = document.querySelectorAll('.min-temp-column');
+        const maxTempColumns = document.querySelectorAll('.max-temp-column');
+        const forecastArray = Weather.getForecastDayArray();
+
+        minTempColumns.forEach((column, index) => {
+            const forecastObject = forecastArray[index];
+            const temp = unit === '°F' ? Math.round(forecastObject.day.mintemp_f) : Math.round(forecastObject.day.mintemp_c);
+            column.innerHTML = `<span class="min-temp-value">${temp}</span> ${unit}`;
+        });
+
+        maxTempColumns.forEach((column, index) => {
+            const forecastObject = forecastArray[index];
+            const temp = unit === '°F' ? Math.round(forecastObject.day.maxtemp_f) : Math.round(forecastObject.day.maxtemp_c);
+            column.innerHTML = `<span class="min-temp-value">${temp}</span> ${unit}`;
+        });
+    }
+
+    // Display temperature in the UI
+    displayTemperature() {
+        if (this._selectedDegree !== 'celsius') {
+            this.configureTemperature(Weather.getFahrenheitTemp(), Weather.getFeelsLikeF(), '°F');
+        } else {
+            this.configureTemperature(Weather.getCelsiusTemp(), Weather.getFeelsLikeC(), '°C');
+        }
     }
 
     // Update common weather elements in the UI
@@ -142,57 +187,24 @@ class UI {
         this._uvSpan.textContent = Weather.getUV();
     }
 
-    // Initialize the UI and set up event listeners
-    startUI = () => {
-        // Fetch weather data for New York as the initial location
-        Weather.fetchCurrentWeatherData("New York").then(() => {
-            this.displayToUi();
-        });
-
-        // Add an event listener for the search button
-        this._searchButton.addEventListener('click', (e) => {
-            const enteredLocation = this._inputElement.value;
-
-            // Fetch weather data for the entered location
-            Weather.fetchCurrentWeatherData(enteredLocation).then(() => {
-                this.displayToUi();
-            });
-
-            // Clear the input field and prevent form submission
-            this._inputElement.value = '';
-            e.preventDefault();
-        });
-
-        // Add event listeners for unit conversion buttons (Celsius and Fahrenheit)
-        this._celsiusButton.addEventListener("click", () => {
-            this.toggleTemperatureUnit('celsius');
-        });
-
-        this._fahrenheitButton.addEventListener("click", () => {
-            this.toggleTemperatureUnit('fahrenheit');
-        });
-    }
-
     // Toggle between Celsius and Fahrenheit temperature units
     toggleTemperatureUnit(unit) {
-        // Remove focus from any previously focused button
         this._celsiusButton.blur();
         this._fahrenheitButton.blur();
 
-        // Update the selected temperature unit and update the UI
         if (unit === 'celsius') {
             this._selectedDegree = 'celsius';
-            this.displayToUi();
+            this.displayTemperature();
             this._celsiusButton.style.border = "2px solid white";
             this._fahrenheitButton.style.border = "none";
         } else {
             this._selectedDegree = 'fahrenheit';
-            this.displayToUi();
+            this.displayTemperature();
             this._celsiusButton.style.border = "none";
             this._fahrenheitButton.style.border = "2px solid white";
         }
     }
 }
 
-// Export an instance of the UI class
 export default new UI;
+

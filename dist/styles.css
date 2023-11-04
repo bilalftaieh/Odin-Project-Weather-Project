@@ -15,8 +15,9 @@ body {
 
 .container{
     display: grid;
-    grid-template-rows: 150px 150px 150px 150px;
-    align-items: center;
+    grid-template-rows: auto auto auto auto;
+    gap: 50px;
+    justify-content: center;
 }
 
 header {
@@ -48,15 +49,19 @@ header {
     border-radius: 4px;
 }
 
-#search-button.night { 
-    background: linear-gradient(to bottom, #000, #000);
+#search-button{
     color: #fff;
     border: none;
-    /* border-radius: 4px; */
     padding: 10px 20px;
     margin-left: 10px;
+    margin-top: 10px;
+    border-radius: 7px;
     cursor: pointer;
     transition: background-color 0.3s; 
+}
+
+#search-button.night { 
+    background: linear-gradient(to bottom, #000, #000);
 }
 
 #search-button.night:hover {
@@ -65,12 +70,6 @@ header {
 
 #search-button.day { 
     background: linear-gradient(to bottom, #87CEEB, #1E90FF);
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    margin-left: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s; 
 }
 
 #search-button.day:hover {
@@ -175,6 +174,7 @@ footer {
     padding: 20px 0;
     text-align: center;
     font-size: 18px;
+    margin: 40px;
 }
 
 .github-link {
@@ -195,7 +195,7 @@ footer {
 }
 
 .day-bg {
-    background: linear-gradient(to bottom, #87CEEB, #1E90FF); /* Adjust gradient colors as needed */
+    background: linear-gradient(to bottom, #87CEEB, #1E90FF); 
 }
 
 .day-bg.cloudy{
@@ -211,17 +211,52 @@ footer {
 }
 
 
+.three-day-forecast-div{
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 10px;
+    justify-items: center;
+}
+
+#three-day-forecast-grid-table{
+    display: grid;
+    grid-template-rows: auto auto auto;
+}
+
+.grid-table-row {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 10px; 
+    border-bottom: 1px solid #ccc;
+}
+
+.grid-table-row h3 {
+    flex: 1; 
+    text-align: center; 
+    padding: 5px; 
+    font-weight: 700;
+    margin: 0;
+}
+
+
+.grid-table-row p {
+    flex: 1;
+    text-align: center;
+    padding: 5px;
+    font-size: 20px;
+}
+
 
 @media only screen and (max-width: 600px) {
 
       .header-div{
         grid-template-columns: auto;
-        grid-template-rows: 50px 50px 50px;
+        grid-template-rows: auto auto auto;
+        gap: 15px;
+        margin-top: 50px;
       }
 
-      .container{
-        grid-template-rows: 200px 200px 200px 200px;
-      }
 
       .search-bar {
         margin-top: 0;
@@ -233,7 +268,7 @@ footer {
 
     .location-weather-div{
         display: grid;
-        grid-template-rows: 140px 90px;
+        grid-template-rows: auto auto;
         grid-template-columns: auto;
         margin-right: 0;
         justify-content: center;
@@ -246,7 +281,14 @@ footer {
             justify-content: space-around;
     }
 
-
-      
+    .grid-table-row h3 {
+        font-size: 18px;
+    }
+    
+    
+    .grid-table-row p {
+        font-size: 18px;
+    }
+    
 }
 

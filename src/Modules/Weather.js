@@ -22,7 +22,7 @@ class Weather {
     fetchCurrentWeatherData = async (location) => {
         try {
             const response = await fetch(
-                 `http://api.weatherapi.com/v1/current.json?key=58979825eb394eb088b103404231410&q=${location}&aqi=no`
+                 `http://api.weatherapi.com/v1/forecast.json?key=58979825eb394eb088b103404231410&q=${location}&days=10&aqi=no&alerts=no/`
             );
 
             if (response.status === 200) {
@@ -44,7 +44,7 @@ class Weather {
     // Get temperature in Celsius
     getCelsiusTemp = () => {
         if (this._weatherData) {
-            return this._weatherData.current.temp_c;
+            return Math.round(this._weatherData.current.temp_c);
         } else {
             console.error("Weather data not available.");
         }
@@ -53,7 +53,7 @@ class Weather {
     // Get temperature in Fahrenheit
     getFahrenheitTemp = () => {
         if (this._weatherData) {
-            return this._weatherData.current.temp_f;
+            return Math.round(this._weatherData.current.temp_f);
         } else {
             console.error("Weather data not available.");
         }
@@ -139,7 +139,7 @@ class Weather {
     // Get feels-like temperature in Celsius
     getFeelsLikeC = () => {
         if (this._weatherData) {
-            return this._weatherData.current.feelslike_c;
+            return Math.round(this._weatherData.current.feelslike_c);
         } else {
             console.error("Weather data not available.");
         }
@@ -148,7 +148,7 @@ class Weather {
     // Get feels-like temperature in Fahrenheit
     getFeelsLikeF = () => {
         if (this._weatherData) {
-            return this._weatherData.current.feelslike_f;
+            return Math.round(this._weatherData.current.feelslike_f);
         } else {
             console.error("Weather data not available.");
         }
@@ -210,6 +210,15 @@ class Weather {
         return [
             1000
         ];
+    }
+
+    // Get the forecast array
+    getForecastDayArray = () => {
+        if (this._weatherData) {
+            return this._weatherData.forecast.forecastday;
+        } else {
+            console.error("Weather data not available.");
+        }
     }
     
 }
